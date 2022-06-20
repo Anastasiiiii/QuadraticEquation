@@ -1,6 +1,7 @@
 'use strict';
 
 const readline = require('readline');
+const fs = require('fs');
 
 
 const rl = readline.createInterface({
@@ -52,6 +53,36 @@ const checkInput = arg => {
         rl.close();
         solver(coeff);
     }
+}
+
+const FileMode = () => {
+    rl.question(`Please write the name of txt file with coefficients\ n In the file numbers should be without punktuation(ex.2 4 5)\n`, name => {
+        fs.readFile(name, () => {
+            if (!name.includes('.txt')) {
+                console.log("Invalid file format");
+                process.exit(1);
+            } else if (fs.existsSync(name)) {
+                const fileContent = fs.readFileSync(name, "utf-8");
+                const numbers = fileContent.split(" ");
+                const coeff = numbers.map(parseFloat);
+
+                for (const element of coeff) {
+                    if (coeff[0] === 0) {
+                        console.log(`Error!Expected a value of a which is differ from 0`);
+                        process.exit(1);
+                    } else if (isNaN(element)) {
+                        console.log(`Error!Expected a valid real number, got $ { element }
+                                        instead`);
+                        process.exit(1);
+                    }
+                }
+                solver(coeff);
+            } else {
+                console.log(`Error!Can 't find a file with ${name}`)
+                process.exist(1);
+            }
+        })
+    })
 }
 const solver = ([...args]) => {
 

@@ -9,6 +9,8 @@ This program is created to solve the quadratic equations in the terminal. You ha
 ```bash
 https://github.com/Anastasiiiii/QuadraticEquation.git
 ```
+2. Install Node js
+3. Print in the terminal: node main.js
 
 
 
